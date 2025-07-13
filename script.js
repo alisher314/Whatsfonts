@@ -29,7 +29,7 @@
             langButtonRu: 'Рус',
             langButtonUz: 'O\'zbekcha',
             inputTextLabel: 'Oldindan ko\'rish uchun matnni kiriting:',
-            inputPlaceholder: 'Masalan: \'Kuyovning va Kelin Ismi\'',
+            inputPlaceholder: 'Masalan: \'Kuyovning & Kelin Ismi\'& belgisini tekshirishni unutmang',
             emptyPreviewMessage: 'Matnni kiriting, turli xil shriftlarida qanday ko\'rinishini bilish uchun.',
             closeButton: 'Ilovani yopish',
             langWarning: 'Telegram WebApp API mavjud emas. Ehtimol, siz Telegramda sinab ko\'rmoqchisiz.'
