@@ -1,4 +1,4 @@
-﻿body {
+body {
     font-family: 'Open Sans', sans-serif; /* Fallback или дефолтный шрифт */
     margin: 0;
     padding: 20px;
@@ -12,7 +12,7 @@
 }
 
 .container {
-    position: relative; /* Добавляем, чтобы .language-switcher позиционировался относительно него */
+    position: relative;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -20,7 +20,7 @@
     max-width: 600px;
     width: 100%;
     text-align: center;
-    padding-top: 60px; /* Добавляем отступ, чтобы кнопки не накладывались на заголовок */
+    padding-top: 60px;
 }
 
 h1 {
@@ -51,6 +51,7 @@ textarea {
     min-height: 80px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
     transition: border-color 0.3s ease;
+    margin-bottom: 15px; /* Отступ от новой кнопки */
 }
 
 textarea:focus {
@@ -58,6 +59,32 @@ textarea:focus {
     outline: none;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
+
+/* Стили для новой кнопки "Проверить" */
+.check-button {
+    background-color: #28a745; /* Зеленый цвет для "проверить" */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 100%; /* Растягиваем на всю ширину */
+    box-sizing: border-box; /* Учитываем padding в ширине */
+    margin-bottom: 20px; /* Отступ от превью шрифтов */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.check-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.check-button:active {
+    background-color: #1e7e34;
+    transform: translateY(0);
+}
+
 
 .font-previews {
     border-top: 1px solid #eee;
@@ -70,7 +97,7 @@ textarea:focus {
     padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 1.4em; /* Увеличенный размер для лучшей видимости */
+    font-size: 1.4em;
     line-height: 1.5;
     background-color: #fcfcfc;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -89,98 +116,29 @@ textarea:focus {
     font-weight: 600;
 }
 
-/* Определения шрифтов (ПЕРЕПРОВЕРЕНО - НАЗВАНИЯ В ТОЧНОСТИ СООТВЕТСТВУЮТ GOOGLE FONTS) */
-
-/* Рукописные / Каллиграфические */
-.font-great-vibes {
-    font-family: 'Great Vibes', cursive;
-}
-
-.font-dancing-script {
-    font-family: 'Dancing Script', cursive;
-}
-
-.font-allura {
-    font-family: 'Allura', cursive;
-}
-
-.font-parisienne {
-    font-family: 'Parisienne', cursive;
-}
-
-.font-sacramento {
-    font-family: 'Sacramento', cursive;
-}
-
-.font-caveat {
-    font-family: 'Caveat', cursive;
-}
-
-.font-pacifico {
-    font-family: 'Pacifico', cursive;
-}
-
-.font-pinyon-script {
-    font-family: 'Pinyon Script', cursive;
-}
-
-.font-bad-script { /* Кириллический */
-    font-family: 'Bad Script', cursive;
-}
-
-.font-marck-script { /* Кириллический */
-    font-family: 'Marck Script', cursive;
-}
-
-/* С засечками (элегантные / классические) */
-.font-playfair-display {
-    font-family: 'Playfair Display', serif;
-}
-
-.font-cormorant-garamond {
-    font-family: 'Cormorant Garamond', serif;
-}
-
-.font-lora {
-    font-family: 'Lora', serif;
-}
-
-.font-prata {
-    font-family: 'Prata', serif;
-}
-
-.font-eb-garamond {
-    font-family: 'EB Garamond', serif;
-}
-
-/* Без засечек (чистые / современные) */
-.font-montserrat {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.font-open-sans {
-    font-family: 'Open Sans', sans-serif;
-}
-
-.font-josefin-sans {
-    font-family: 'Josefin Sans', sans-serif;
-}
-
-.font-quicksand {
-    font-family: 'Quicksand', sans-serif;
-}
-
-.font-comfortaa { /* Кириллический */
-    font-family: 'Comfortaa', sans-serif;
-}
-
-.font-lobster { /* Кириллический */
-    font-family: 'Lobster', cursive; /* Lobster - рукописный, но без засечек */
-}
-
-.font-neucha { /* Кириллический */
-    font-family: 'Neucha', cursive;
-}
+/* Определения шрифтов (без изменений) */
+.font-great-vibes { font-family: 'Great Vibes', cursive; }
+.font-dancing-script { font-family: 'Dancing Script', cursive; }
+.font-allura { font-family: 'Allura', cursive; }
+.font-parisienne { font-family: 'Parisienne', cursive; }
+.font-sacramento { font-family: 'Sacramento', cursive; }
+.font-caveat { font-family: 'Caveat', cursive; }
+.font-pacifico { font-family: 'Pacifico', cursive; }
+.font-pinyon-script { font-family: 'Pinyon Script', cursive; }
+.font-bad-script { font-family: 'Bad Script', cursive; }
+.font-marck-script { font-family: 'Marck Script', cursive; }
+.font-lobster { font-family: 'Lobster', cursive; }
+.font-neucha { font-family: 'Neucha', cursive; }
+.font-playfair-display { font-family: 'Playfair Display', serif; }
+.font-cormorant-garamond { font-family: 'Cormorant Garamond', serif; }
+.font-lora { font-family: 'Lora', serif; }
+.font-prata { font-family: 'Prata', serif; }
+.font-eb-garamond { font-family: 'EB Garamond', serif; }
+.font-montserrat { font-family: 'Montserrat', sans-serif; }
+.font-open-sans { font-family: 'Open Sans', sans-serif; }
+.font-josefin-sans { font-family: 'Josefin Sans', sans-serif; }
+.font-quicksand { font-family: 'Quicksand', sans-serif; }
+.font-comfortaa { font-family: 'Comfortaa', sans-serif; }
 
 /* Стили для переключателя языка */
 .language-switcher {
@@ -227,8 +185,6 @@ textarea:focus {
     background-color: #0056b3;
     border-color: #0056b3;
 }
-
-/* Стили для выбора набора символов УДАЛЕНЫ */
 
 .close-button {
     background-color: #dc3545;
