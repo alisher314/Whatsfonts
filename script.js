@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    let currentLang = 'ru'; // Язык по умолчанию
+    let currentLang = 'ru';
 
     function getUrlParameter(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (langLabel) langLabel.textContent = t.langLabel;
         if (inputTextLabel) inputTextLabel.textContent = t.inputTextLabel;
         textInput.placeholder = t.inputPlaceholder;
-        checkButton.textContent = t.checkButton; // Обновляем текст кнопки "Проверить"
+        checkButton.textContent = t.checkButton;
         closeButton.textContent = t.closeButton;
         if (emptyPreviewMessageElement) {
              emptyPreviewMessageElement.textContent = t.emptyPreviewMessage;
@@ -109,6 +109,38 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Comfortaa', class: 'font-comfortaa', description_ru: 'Мягкий, округлый (кириллица)', description_uz: 'Yumshoq, dumaloq (Kirill)' },
     ];
 
+    // Функция для динамической подгонки размера шрифта
+    function adjustFontSizeToFit(element) {
+        let maxFontSize = 60; // Максимальный размер шрифта в пикселях
+        let minFontSize = 16; // Минимальный размер шрифта в пикселях
+        let currentFontSize = maxFontSize;
+
+        // Устанавливаем начальный большой размер шрифта
+        element.style.fontSize = currentFontSize + 'px';
+        // Убеждаемся, что текст не переносится для точного измерения
+        element.style.whiteSpace = 'nowrap';
+        // Скрываем переполнение, если текст временно не помещается
+        element.style.overflow = 'hidden';
+
+        // Получаем ширину контейнера, в который должен поместиться текст
+        // Важно: clientWidth должен быть измерен после того, как элемент добавлен в DOM
+        const containerWidth = element.parentElement.clientWidth - 30; // 30px = padding: 15px * 2 в .font-example
+
+        // Цикл для уменьшения размера шрифта, пока текст не поместится
+        // И пока размер шрифта не достигнет минимального значения
+        while (element.scrollWidth > containerWidth && currentFontSize > minFontSize) {
+            currentFontSize -= 1; // Уменьшаем на 1px
+            element.style.fontSize = currentFontSize + 'px';
+        }
+
+        // После подгонки можно снова разрешить перенос строк, если это не мешает.
+        // Но для "максимально большого, но умещающегося" лучше оставить nowrap,
+        // чтобы текст оставался на одной строке и масштабировался по ширине.
+        // element.style.whiteSpace = ''; // Если нужно вернуть перенос
+        // element.style.overflow = ''; // Если нужно вернуть видимость переполнения (после того как подогнали)
+    }
+
+
     function updateFontPreviews() {
         const inputText = textInput.value;
         fontPreviewContainer.innerHTML = ''; 
@@ -122,16 +154,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('div');
             div.className = `font-example ${font.class}`;
             const fontDescription = currentLang === 'ru' ? font.description_ru : font.description_uz;
-            div.innerHTML = `<strong>${font.name} (${fontDescription}):</strong><br>${inputText}`;
+            // Оборачиваем введенный текст в <span> с классом preview-text
+            div.innerHTML = `<strong>${font.name} (${fontDescription}):</strong><br><span class="preview-text">${inputText}</span>`;
             fontPreviewContainer.appendChild(div);
+
+            // После того как div добавлен в DOM, получаем ссылку на span и подгоняем его размер
+            const previewTextSpan = div.querySelector('.preview-text');
+            if (previewTextSpan) {
+                adjustFontSizeToFit(previewTextSpan);
+            }
         });
     }
 
     // --- Обработчики событий ---
-    // Удаляем textInput.addEventListener('input', updateFontPreviews);
-    // Удаляем textInput.addEventListener('blur', ...);
-
-    // НОВАЯ ЛОГИКА: Обновление предпросмотра и скрытие клавиатуры по кнопке "Проверить"
     checkButton.addEventListener('click', () => {
         updateFontPreviews(); // Обновляем предпросмотр
         textInput.blur(); // Снимаем фокус с поля ввода, скрывая клавиатуру
