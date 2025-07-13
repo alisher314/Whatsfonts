@@ -1,5 +1,5 @@
 body {
-    font-family: 'Open Sans', sans-serif; /* Fallback или дефолтный шрифт */
+    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 20px;
     background-color: #f4f7f6;
@@ -51,7 +51,7 @@ textarea {
     min-height: 80px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
     transition: border-color 0.3s ease;
-    margin-bottom: 15px; /* Отступ от новой кнопки */
+    margin-bottom: 15px;
 }
 
 textarea:focus {
@@ -60,18 +60,17 @@ textarea:focus {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
-/* Стили для новой кнопки "Проверить" */
 .check-button {
-    background-color: #28a745; /* Зеленый цвет для "проверить" */
+    background-color: #28a745;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.1em;
-    width: 100%; /* Растягиваем на всю ширину */
-    box-sizing: border-box; /* Учитываем padding в ширине */
-    margin-bottom: 20px; /* Отступ от превью шрифтов */
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -85,7 +84,6 @@ textarea:focus {
     transform: translateY(0);
 }
 
-
 .font-previews {
     border-top: 1px solid #eee;
     padding-top: 25px;
@@ -97,11 +95,19 @@ textarea:focus {
     padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 1.4em;
+    /* font-size: 1.4em; <-- УДАЛЕНО: размер теперь регулируется JavaScript */
     line-height: 1.5;
     background-color: #fcfcfc;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease-in-out;
+    white-space: nowrap; /* Гарантируем, что текст будет на одной строке для точного измерения */
+    overflow: hidden; /* Скрываем возможное переполнение во время настройки шрифта */
+    text-overflow: clip; /* Убеждаемся, что текст не будет обрезаться многоточием до масштабирования */
+}
+
+/* Новый класс для самого текста, который будет масштабироваться */
+.font-example .preview-text {
+    display: inline-block; /* Важно для корректного измерения scrollWidth */
 }
 
 .font-example:hover {
@@ -114,6 +120,7 @@ textarea:focus {
     color: #007bff;
     margin-bottom: 5px;
     font-weight: 600;
+    white-space: normal; /* Название шрифта может переноситься */
 }
 
 /* Определения шрифтов (без изменений) */
