@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const textInput = document.getElementById('textInput');
     const fontPreviewContainer = document.getElementById('fontPreviewContainer');
     const closeButton = document.getElementById('closeButton');
@@ -8,8 +8,6 @@
     const langButtons = document.querySelectorAll('.lang-button');
     const emptyPreviewMessageElement = document.getElementById('emptyPreviewMessage');
 
-    // УДАЛЕНЫ: const charsetLabel, charsetButtons
-
     // --- Локализация текста ---
     const translations = {
         'ru': {
@@ -17,7 +15,7 @@
             langLabel: 'Язык интерфейса:',
             langButtonRu: 'Рус',
             langButtonUz: 'Узб',
-            inputTextLabel: 'Введите текст для предпросмотра:',
+            inputTextLabel: 'Введите текст для предпросмотра: (не забудьте проверить знак &)',
             inputPlaceholder: 'Например: \'Имя Жениха & Имя Невесты\'',
             emptyPreviewMessage: 'Введите текст, чтобы увидеть, как он выглядит в разных шрифтах.',
             closeButton: 'Закрыть приложение',
@@ -28,8 +26,8 @@
             langLabel: 'Interfeys tili:',
             langButtonRu: 'Рус',
             langButtonUz: 'O\'zbekcha',
-            inputTextLabel: 'Oldindan ko\'rish uchun matnni kiriting:',
-            inputPlaceholder: 'Masalan: \'Kuyovning & Kelin Ismi\'& belgisini tekshirishni unutmang',
+            inputTextLabel: 'Oldindan ko\'rish uchun matnni kiriting: ("&" belgisini tekshirishni unutmang)',
+            inputPlaceholder: 'Masalan: \'Kuyovning va Kelin Ismi\'',
             emptyPreviewMessage: 'Matnni kiriting, turli xil shriftlarida qanday ko\'rinishini bilish uchun.',
             closeButton: 'Ilovani yopish',
             langWarning: 'Telegram WebApp API mavjud emas. Ehtimol, siz Telegramda sinab ko\'rmoqchisiz.'
@@ -38,7 +36,6 @@
 
     let currentLang = 'ru'; // Язык по умолчанию
 
-    // Функция для получения параметра из URL
     function getUrlParameter(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -51,7 +48,6 @@
         currentLang = langFromUrl;
     }
 
-    // --- Обновление интерфейса на основе выбранного языка ---
     function updateInterfaceLanguage() {
         const t = translations[currentLang];
         document.title = t.title;
@@ -77,12 +73,8 @@
                 button.classList.remove('active');
             }
         });
-
-        // УДАЛЕНО: Обновление текста кнопок набора символов
     }
 
-    // --- Список свадебных шрифтов (ОБНОВЛЕНО: `charset` удален, `description` изменён) ---
-    // Названия шрифтов и их классы ТЩАТЕЛЬНО ПРОВЕРЕНЫ на соответствие Google Fonts.
     const fonts = [
         // --- Рукописные / Каллиграфические ---
         { name: 'Great Vibes', class: 'font-great-vibes', description_ru: 'Элегантный рукописный', description_uz: 'Nafis qo\'lyozma' },
@@ -122,7 +114,6 @@
             return;
         }
 
-        // ФИЛЬТРАЦИЯ УДАЛЕНА - теперь отображаются все шрифты
         fonts.forEach(font => {
             const div = document.createElement('div');
             div.className = `font-example ${font.class}`;
@@ -134,6 +125,14 @@
 
     // --- Обработчики событий ---
     textInput.addEventListener('input', updateFontPreviews);
+    
+    // НОВАЯ ЛОГИКА: Скрытие клавиатуры при снятии фокуса с текстового поля
+    textInput.addEventListener('blur', () => {
+        // Программно убираем фокус с поля ввода
+        // Это обычно заставляет виртуальную клавиатуру исчезнуть
+        textInput.blur(); 
+    });
+
 
     langButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -145,8 +144,6 @@
             }
         });
     });
-
-    // ОБРАБОТЧИК ДЛЯ КНОПОК НАБОРА СИМВОЛОВ УДАЛЕН
 
     // Инициализация интерфейса и превью при загрузке страницы
     updateInterfaceLanguage();
