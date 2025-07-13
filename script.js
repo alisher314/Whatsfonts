@@ -7,28 +7,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputTextLabel = document.getElementById('inputTextLabel');
     const langButtons = document.querySelectorAll('.lang-button');
     const emptyPreviewMessageElement = document.getElementById('emptyPreviewMessage');
+    const checkButton = document.getElementById('checkButton'); // Получаем новую кнопку
 
     // --- Локализация текста ---
     const translations = {
         'ru': {
-            title: 'KorobkaUz Design',
+            title: 'KorobkaUz Design', // Обновлено
             langLabel: 'Язык интерфейса:',
             langButtonRu: 'Рус',
             langButtonUz: 'Узб',
             inputTextLabel: 'Введите текст для предпросмотра: (не забудьте проверить знак &)',
-            inputPlaceholder: 'Например: \'Имя Жениха & Имя Невесты\'',
+            inputPlaceholder: 'Например: \'Имя Жениха & Имя Невесты\'', // Обновлено
             emptyPreviewMessage: 'Введите текст, чтобы увидеть, как он выглядит в разных шрифтах.',
+            checkButton: 'Проверить', // Добавлена строка для кнопки
             closeButton: 'Закрыть приложение',
             langWarning: 'Telegram WebApp API не доступен. Возможно, вы тестируете не в Telegram.'
         },
         'uz': {
-            title: 'KorobkaUz Design',
+            title: 'KorobkaUz Design', // Обновлено
             langLabel: 'Interfeys tili:',
             langButtonRu: 'Рус',
             langButtonUz: 'O\'zbekcha',
             inputTextLabel: 'Oldindan ko\'rish uchun matnni kiriting: ("&" belgisini tekshirishni unutmang)',
-            inputPlaceholder: 'Masalan: \'Kuyovning va Kelin Ismi\'',
+            inputPlaceholder: 'Masalan: \'Kuyovning va Kelin Ismi\'', // Обновлено
             emptyPreviewMessage: 'Matnni kiriting, turli xil shriftlarida qanday ko\'rinishini bilish uchun.',
+            checkButton: 'Tekshirish', // Добавлена строка для кнопки
             closeButton: 'Ilovani yopish',
             langWarning: 'Telegram WebApp API mavjud emas. Ehtimol, siz Telegramda sinab ko\'rmoqchisiz.'
         }
@@ -55,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (langLabel) langLabel.textContent = t.langLabel;
         if (inputTextLabel) inputTextLabel.textContent = t.inputTextLabel;
         textInput.placeholder = t.inputPlaceholder;
+        checkButton.textContent = t.checkButton; // Обновляем текст кнопки "Проверить"
         closeButton.textContent = t.closeButton;
         if (emptyPreviewMessageElement) {
              emptyPreviewMessageElement.textContent = t.emptyPreviewMessage;
@@ -124,15 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Обработчики событий ---
-    textInput.addEventListener('input', updateFontPreviews);
-    
-    // НОВАЯ ЛОГИКА: Скрытие клавиатуры при снятии фокуса с текстового поля
-    textInput.addEventListener('blur', () => {
-        // Программно убираем фокус с поля ввода
-        // Это обычно заставляет виртуальную клавиатуру исчезнуть
-        textInput.blur(); 
-    });
+    // Удаляем textInput.addEventListener('input', updateFontPreviews);
+    // Удаляем textInput.addEventListener('blur', ...);
 
+    // НОВАЯ ЛОГИКА: Обновление предпросмотра и скрытие клавиатуры по кнопке "Проверить"
+    checkButton.addEventListener('click', () => {
+        updateFontPreviews(); // Обновляем предпросмотр
+        textInput.blur(); // Снимаем фокус с поля ввода, скрывая клавиатуру
+    });
 
     langButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -145,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Инициализация интерфейса и превью при загрузке страницы
+    // Инициализация интерфейса и предпросмотра при загрузке страницы
     updateInterfaceLanguage();
     updateFontPreviews(); 
 
